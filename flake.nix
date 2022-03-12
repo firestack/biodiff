@@ -33,14 +33,14 @@
 
         # Build the actual crate itself, reusing the dependency
         # artifacts from above.
-        my-crate = craneLib.buildPackage {
+        biodiff = craneLib.buildPackage {
           inherit cargoArtifacts src;
         };
       in
       {
         checks = {
           # Build the crate as part of `nix flake check` for convenience
-          inherit my-crate;
+          inherit biodiff;
 
           # Run clippy (and deny all warnings) on the crate source,
           # again, resuing the dependency artifacts from above.
@@ -48,27 +48,27 @@
           # Note that this is done as a separate derivation so that
           # we can block the CI if there are issues here, but not
           # prevent downstream consumers from building our crate by itself.
-          my-crate-clippy = craneLib.cargoClippy {
+          biodiff-clippy = craneLib.cargoClippy {
             inherit cargoArtifacts src;
             cargoClippyExtraArgs = "-- --deny warnings";
           };
 
           # Check formatting
-          my-crate-fmt = craneLib.cargoFmt {
+          biodiff-fmt = craneLib.cargoFmt {
             inherit src;
           };
 
           # Check code coverage (note: this will not upload coverage anywhere)
-          my-crate-coverage = craneLib.cargoTarpaulin {
+          biodiff-coverage = craneLib.cargoTarpaulin {
             inherit cargoArtifacts src;
           };
         };
 
-        defaultPackage = my-crate;
-        packages.my-crate = my-crate;
+        defaultPackage = biodiff;
+        packages.biodiff = biodiff;
 
         apps.my-app = flake-utils.lib.mkApp {
-          drv = my-crate;
+          drv = biodiff;
         };
         defaultApp = self.apps.${system}.my-app;
 
