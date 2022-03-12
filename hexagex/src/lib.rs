@@ -966,7 +966,7 @@ mod tests {
     }
     /// test whether the given regex matches the underlined ranges and only them
     fn test_matches(regex: &str, hexcontent: &str, underlined: &str) {
-        println!("converted: \"{}\"", hexagex(regex).unwrap().to_string());
+        println!("converted: \"{}\"", hexagex(regex).unwrap());
         let content = h(hexcontent);
         let mut matches = matches(regex, &content).into_iter();
         for range in get_underline_ranges(underlined).into_iter() {
