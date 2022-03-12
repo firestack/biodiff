@@ -972,7 +972,7 @@ mod tests {
         for range in get_underline_ranges(underlined).into_iter() {
             let m = matches
                 .next()
-                .expect(&format!("Missing match at {:?}", range));
+                .unwrap_or_else(|| panic!("Missing match at {:?}", range));
             assert_eq!(
                 m.range(),
                 range,
