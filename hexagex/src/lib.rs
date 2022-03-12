@@ -931,7 +931,7 @@ mod tests {
     fn matches<'a>(expr: &str, content: &'a [u8]) -> Vec<regex::bytes::Match<'a>> {
         hexagex(expr)
             .unwrap()
-            .find_iter(&content)
+            .find_iter(content)
             .collect::<Vec<_>>()
     }
     /// turns an underline string that looks somewhat like "  ^----$  " into the ranges
