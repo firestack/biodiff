@@ -67,10 +67,10 @@
         defaultPackage = biodiff;
         packages.biodiff = biodiff;
 
-        apps.my-app = flake-utils.lib.mkApp {
+        apps.biodiff-app = flake-utils.lib.mkApp {
           drv = biodiff;
         };
-        defaultApp = self.apps.${system}.my-app;
+        defaultApp = self.apps.${system}.biodiff-app;
 
         devShell = pkgs.mkShell {
           inputsFrom = builtins.attrValues self.checks;
